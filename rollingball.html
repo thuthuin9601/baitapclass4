@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="game"></div>
+</body>
+</html>
+<script>
+    class Hero{
+        constructor(image, top, left, size,speed){
+            this.image = image;
+            this.top = top;
+            this.left = left;
+            this.size = size;
+            this.speed=speed;
+        }
+        getHeroElement(){
+            return '<img width="'+ this.size + '"' +
+      ' height="'+ this.size + '"' +
+      ' src="' + this.image +'"' +
+      ' style="top: '+this.top+'px; left:'+this.left+'px;position:absolute;" />';
+        }
+        moveHero(){
+            if (this.left < 0) {
+                this.speed = -this.speed;
+                if(this.top>0&&this.top+this.size<=600){
+                    this.top+=this.size;
+                }
+            }
+            else if(this.left + this.size > window.innerWidth){
+                this.speed = -this.speed; 
+            }
+
+      this.left += this.speed;
+
+        }
+    }
+    var hero = new Hero('rolling-football-ball-gif.gif', 20, 30, 200, 100);
+    function start(){
+hero.moveHero();
+  document.getElementById('game').innerHTML = hero.getHeroElement();
+  setTimeout(start, 500)
+}
+    start();
+</script>
